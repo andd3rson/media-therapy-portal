@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
 :root {
+  --primary: #A3C4F3;
+  --secondary: #A8D5BA;
+  --neutral-light: #F6F5F3;
+  --neutral-medium: #E0E0E0;
+  --neutral-dark: #333333;
+  --accent-purple: #D7CBE9;
+  --accent-orange: #F7D1BA;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #333333;
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-neutral-light: var(--neutral-light);
+  --color-neutral-medium: var(--neutral-medium);
+  --color-neutral-dark: var(--neutral-dark);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-orange: var(--accent-orange);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -14,13 +28,43 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1a1a;
+    --foreground: #f6f5f3;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Smooth scroll for in-page anchors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom utility classes */
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-neutral-light { background-color: var(--neutral-light); }
+.bg-neutral-medium { background-color: var(--neutral-medium); }
+.bg-neutral-dark { background-color: var(--neutral-dark); }
+.bg-accent-purple { background-color: var(--accent-purple); }
+.bg-accent-orange { background-color: var(--accent-orange); }
+
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-neutral-light { color: var(--neutral-light); }
+.text-neutral-medium { color: var(--neutral-medium); }
+.text-neutral-dark { color: var(--neutral-dark); }
+.text-accent-purple { color: var(--accent-purple); }
+.text-accent-orange { color: var(--accent-orange); }
+
+.border-primary { border-color: var(--primary); }
+.border-secondary { border-color: var(--secondary); }
+.border-neutral-light { border-color: var(--neutral-light); }
+.border-neutral-medium { border-color: var(--neutral-medium); }
+.border-neutral-dark { border-color: var(--neutral-dark); }
+.border-accent-purple { border-color: var(--accent-purple); }
+.border-accent-orange { border-color: var(--accent-orange); }
