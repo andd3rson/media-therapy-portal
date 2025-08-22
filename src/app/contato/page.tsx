@@ -10,13 +10,48 @@ export default function Contato() {
     assunto: "",
     mensagem: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
-    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-    setFormData({ nome: "", email: "", telefone: "", assunto: "", mensagem: "" });
+    setIsLoading(true);
+    setSubmitStatus({ type: null, message: '' });
+//http://localhost:3000/api/contact
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Mensagem enviada com sucesso! Entraremos em contato em breve.'
+        });
+        setFormData({ nome: "", email: "", telefone: "", assunto: "", mensagem: "" });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Erro ao enviar mensagem. Tente novamente.'
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Erro de conexão. Verifique sua internet e tente novamente.'
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -53,24 +88,24 @@ export default function Contato() {
               <div className="space-y-6">
                 {
                   
-                /*
-                ENDEREÇO: Descomentar quando tiver endereço de atuação
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-dark mb-1">Endereço</h3>
-                    <p className="text-neutral-dark/70">
-                      Rua das Flores, 123<br />
-                      Centro - São Paulo, SP<br />
-                      CEP: 01234-567
-                    </p>
-                  </div>
-                </div> */}
+                 /*
+                 ENDEREÇO: Descomentar quando tiver endereço de atuação
+                 <div className="flex items-start gap-4">
+                   <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                     </svg>
+                   </div>
+                   <div>
+                     <h3 className="font-semibold text-neutral-dark mb-1">Endereço</h3>
+                     <p className="text-neutral-dark/70">
+                       Rua das Flores, 123<br />
+                       Centro - São Paulo, SP<br />
+                       CEP: 01234-567
+                     </p>
+                   </div>
+                 </div> */}
 
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center flex-shrink-0">
@@ -96,7 +131,7 @@ export default function Contato() {
                     <h3 className="font-semibold text-neutral-dark mb-1">Email</h3>
                     <p className="text-neutral-dark/70">
                       [EMAIL DE CONTATO DO MANUEL]<br />
-                      
+                       
                     </p>
                   </div>
                 </div>
@@ -124,6 +159,17 @@ export default function Contato() {
               <h2 className="text-2xl font-bold text-neutral-dark mb-6">
                 Envie sua Mensagem
               </h2>
+              
+              {/* Status Messages */}
+              {submitStatus.type && (
+                <div className={`mb-6 p-4 rounded-lg ${
+                  submitStatus.type === 'success' 
+                    ? 'bg-secondary/20 text-green-800 border border-secondary/30' 
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                }`}>
+                  {submitStatus.message}
+                </div>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -211,10 +257,20 @@ export default function Contato() {
 
                 <button
                   type="submit"
-                  disabled
-                  className="w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                  disabled={isLoading}
+                  className="w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Enviar Mensagem
+                  {isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Enviando...
+                    </div>
+                  ) : (
+                    "Enviar Mensagem"
+                  )}
                 </button>
               </form>
             </div>

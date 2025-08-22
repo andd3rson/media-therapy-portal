@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MediaTherapy Portal
 
-## Getting Started
+Um portal profissional para terapeutas, construído com Next.js 14, Tailwind CSS e Resend para envio de emails.
 
-First, run the development server:
+## 🚀 Tecnologias
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Email**: Resend (API moderna para emails transacionais)
+- **Templates**: React Email para emails profissionais
+- **Deploy**: Vercel (recomendado)
+
+## ✨ Funcionalidades
+
+- 🏠 **Home**: Banner principal com CTAs para contato e login
+- 👨‍⚕️ **Sobre**: Informações sobre o terapeuta e especialidades
+- 📝 **Blog**: Listagem de posts sobre saúde mental
+- 📞 **Contato**: Formulário funcional com envio de emails
+- 🔐 **Login**: Sistema de autenticação
+- 📊 **Dashboard**: Área do paciente com estatísticas e consultas
+
+## 🎨 Paleta de Cores
+
+```css
+--primary: #A3C4F3      /* Azul suave */
+--secondary: #A8D5BA    /* Verde suave */
+--neutral-light: #F6F5F3 /* Branco acinzentado */
+--neutral-medium: #E0E0E0 /* Cinza claro */
+--neutral-dark: #333333   /* Cinza escuro */
+--accent-purple: #D7CBE9 /* Roxo suave */
+--accent-orange: #F7D1BA /* Laranja suave */
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📧 Sistema de Email
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Resend Integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O portal usa o **Resend** para envio de emails transacionais:
 
-## Learn More
+- ✅ **Alta confiabilidade** (99.9% de entrega)
+- ✅ **API moderna** e fácil de usar
+- ✅ **Templates React Email** para emails profissionais
+- ✅ **Dashboard com analytics** completo
+- ✅ **Preços competitivos** ($20 por 50k emails/mês)
 
-To learn more about Next.js, take a look at the following resources:
+### Configuração
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Crie uma conta em [resend.com](https://resend.com)
+2. Obtenha sua API key
+3. Crie um arquivo `.env.local`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+RESEND_API_KEY=re_sua_chave_api_aqui
+```
 
-## Deploy on Vercel
+4. Reinicie o servidor: `npm run dev`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Como Executar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Pré-requisitos
+
+- Node.js 18+ 
+- npm ou yarn
+
+### Instalação
+
+```bash
+# Clone o repositório
+git clone [url-do-repositorio]
+cd media-therapy-portal
+
+# Instale as dependências
+npm install
+
+# Configure as variáveis de ambiente
+cp env.example .env.local
+# Edite .env.local com suas chaves
+
+# Execute o projeto
+npm run dev
+```
+
+### Scripts Disponíveis
+
+```bash
+npm run dev          # Desenvolvimento
+npm run build        # Build de produção
+npm run start        # Servidor de produção
+npm run lint         # Verificação de código
+```
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── contact/          # API de envio de emails
+│   ├── components/            # Componentes reutilizáveis
+│   │   ├── Navbar.tsx        # Navegação principal
+│   │   └── Footer.tsx        # Rodapé
+│   ├── sobre/                 # Página Sobre
+│   ├── blog/                  # Página Blog
+│   ├── contato/               # Página Contato
+│   ├── login/                 # Página Login
+│   ├── dashboard/             # Área do paciente
+│   ├── globals.css            # Estilos globais
+│   ├── layout.tsx             # Layout principal
+│   └── page.tsx               # Página inicial
+├── public/                    # Arquivos estáticos
+└── types/                     # Tipos TypeScript
+```
+
+## 🔧 Configurações
+
+### Variáveis de Ambiente
+
+```env
+# Email (Resend)
+RESEND_API_KEY=re_sua_chave_api_aqui
+
+# Opcional: Domínio personalizado
+RESEND_DOMAIN=mediatherapy.com
+```
+
+### Personalização
+
+- **Cores**: Edite `src/app/globals.css`
+- **Templates de Email**: Modifique `src/app/api/contact/email-template.tsx`
+- **Conteúdo**: Atualize as páginas em `src/app/`
+
+## 📱 Responsividade
+
+O portal é totalmente responsivo e funciona perfeitamente em:
+- 📱 Mobile (320px+)
+- 📱 Tablet (768px+)
+- 💻 Desktop (1024px+)
+- 🖥️ Large screens (1280px+)
+
+## 🚀 Deploy
+
+### Vercel (Recomendado)
+
+1. Conecte seu repositório ao Vercel
+2. Configure as variáveis de ambiente
+3. Deploy automático a cada push
+
+### Outras Plataformas
+
+- **Netlify**: Suporte completo a Next.js
+- **Railway**: Deploy simples e rápido
+- **AWS/GCP**: Para projetos enterprise
+
+## 📊 Monitoramento
+
+### Resend Dashboard
+
+- 📈 Taxa de entrega
+- 📊 Analytics de abertura
+- 🚫 Bounces e spam reports
+- 📧 Histórico de emails
+
+### Logs
+
+- Console do navegador
+- Logs do servidor Next.js
+- Endpoint de teste: `/api/contact/test`
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
+3. Commit: `git commit -m 'Adiciona nova funcionalidade'`
+4. Push: `git push origin feature/nova-funcionalidade`
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 🆘 Suporte
+
+- **Issues**: GitHub Issues
+- **Documentação**: Este README
+- **Resend**: [docs.resend.com](https://docs.resend.com)
+- **Next.js**: [nextjs.org/docs](https://nextjs.org/docs)
+
+---
+
+🎉 **MediaTherapy Portal** - Cuidando da sua saúde mental com tecnologia de ponta!
